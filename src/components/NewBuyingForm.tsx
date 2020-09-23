@@ -59,7 +59,6 @@ export const NewBuyingForm = ({formHandler}: NewBuyingFormProps) => {
         setCost('');
     };
 
-    
     return <>
         <Card className = {classes.root}><CardContent>
         <form className = {classes.form} noValidate autoComplete="off">
@@ -85,7 +84,6 @@ export const NewBuyingForm = ({formHandler}: NewBuyingFormProps) => {
     </CardContent></Card>
     </>;
 }
-
 
 NewBuyingForm.propTypes = {
     formHandler: PropTypes.func.isRequired,

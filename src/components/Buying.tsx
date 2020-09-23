@@ -12,7 +12,9 @@ export interface IBuying {
 }
 
 type BuyingProps = {
-    buying: IBuying
+    buying: IBuying;
+    deleteHandler: Function;
+    index: number;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Buying = ({buying}: BuyingProps) => {
+
+export const Buying = ({buying, deleteHandler, index}: BuyingProps) => {
     const classes = useStyles();
     return <Card className={classes.root}>
         <CardContent>
@@ -33,7 +36,7 @@ export const Buying = ({buying}: BuyingProps) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">Delete</Button>
+            <Button size="small" onClick={e => deleteHandler(index)}>Delete</Button>
             <Button size="small">Edit</Button>
         </CardActions>
     </Card>;
