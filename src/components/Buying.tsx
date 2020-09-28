@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FormDialog from '../components/Dialog'
 
 export interface IBuying {
     name: string;
@@ -14,6 +15,7 @@ export interface IBuying {
 type BuyingProps = {
     buying: IBuying;
     deleteHandler: Function;
+    editHandler: Function;
     index: number;
 }
 
@@ -24,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Buying = ({buying, deleteHandler, index}: BuyingProps) => {
+export const Buying = ({buying, deleteHandler, editHandler, index}: BuyingProps) => {
     const classes = useStyles();
+    const [isDiaogOpen, setDialogOpen] = useState(false);
     return <Card className={classes.root}>
         <CardContent>
             <Typography variant="h5" component="h2">
@@ -37,7 +40,8 @@ export const Buying = ({buying, deleteHandler, index}: BuyingProps) => {
         </CardContent>
         <CardActions>
             <Button size="small" onClick={e => deleteHandler(index)}>Delete</Button>
-            <Button size="small">Edit</Button>
+            <Button size="small" onClick={() => setDialogOpen(true)}>Edit</Button>
         </CardActions>
+        <FormDialog open={isDiaogOpen}/>
     </Card>;
 };
