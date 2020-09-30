@@ -29,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
 export const Buying = ({buying, deleteHandler, editHandler, index}: BuyingProps) => {
     const classes = useStyles();
     const [isDiaogOpen, setDialogOpen] = useState(false);
+
+    function innerEditHandler(index: number, newValue: IBuying) {
+        setDialogOpen(false);
+        editHandler(index, newValue);
+    }
+
+    function closeDialog() {
+        setDialogOpen(false);
+    }
+
     return <Card className={classes.root}>
         <CardContent>
             <Typography variant="h5" component="h2">
@@ -42,6 +52,6 @@ export const Buying = ({buying, deleteHandler, editHandler, index}: BuyingProps)
             <Button size="small" onClick={e => deleteHandler(index)}>Delete</Button>
             <Button size="small" onClick={() => setDialogOpen(true)}>Edit</Button>
         </CardActions>
-        <FormDialog open={isDiaogOpen}/>
+        <FormDialog open={isDiaogOpen} closeDialog={closeDialog} editHandler={innerEditHandler} index={index}/>
     </Card>;
 };
