@@ -4,6 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {Buying, IBuying} from "./Buying";
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,19 +17,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type BuyingsListProps = {
-    buyings: IBuying[];
-    deleteHandler: Function;
-    editHandler: Function;
+
 }
 
-export const BuyingsList = ({buyings, deleteHandler, editHandler}: BuyingsListProps) => {
+export const BuyingsList = () => {
     const classes = useStyles();
+    const buyings: IBuying[] = useSelector(state => (state as any).buyings)
     const sum = buyings
         .map(buying => Number.parseFloat(buying.cost as any))
         .reduce((a, c) => a + c, 0);
 
     return <>
-        {buyings.map((buying, index) => <Buying buying={buying} index={index} deleteHandler={deleteHandler} editHandler={editHandler}/>)}
+        {buyings.map((buying, index) => <Buying index={index} buying={buying}/>)}
         <Card className={classes.root}>
             <CardContent>
                 <Typography variant="h5" component="h2" className={classes.sum}>

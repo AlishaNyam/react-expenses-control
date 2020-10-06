@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { useDispatch } from 'react-redux';
+import { saveAction } from '../store/store';
 
 function NumberFormatCustom(props: any) {
     const { inputRef, onChange, ...other } = props;
@@ -41,23 +42,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type NewBuyingFormProps = {
-    formHandler: Function
+    
 }
 
-export const NewBuyingForm = ({formHandler}: NewBuyingFormProps) => {
+export const NewBuyingForm = ({}: NewBuyingFormProps) => {
 
     const classes = useStyles();
     const [name, setName] = React.useState('');
     const [cost, setCost] = React.useState('');
+    const dispatch = useDispatch()
 
     const handleSaveButton = () => {
-        formHandler({
+        dispatch(saveAction({
             name,
-            cost
-        });
+            cost: Number(cost)
+        }));
         setName('');
         setCost('');
-    };
+    }
 
     return <>
         <Card className = {classes.root}><CardContent>
@@ -84,8 +86,4 @@ export const NewBuyingForm = ({formHandler}: NewBuyingFormProps) => {
     </CardContent></Card>
     </>;
 }
-
-NewBuyingForm.propTypes = {
-    formHandler: PropTypes.func.isRequired,
-};
 

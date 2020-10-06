@@ -5,23 +5,28 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { IBuying } from './Buying';
+import { editAction } from '../store/store';
+import { useDispatch } from 'react-redux';
 
 type FormDialogProps = {
    open: boolean;
-   editHandler: Function;
    index: number;
    closeDialog: Function;
+   buying: IBuying;
 };
 
-export default function FormDialog({open, editHandler, index, closeDialog}: FormDialogProps) {
-  const [name, setName] = React.useState('');
-  const [cost, setCost] = React.useState(''); 
+export default function FormDialog({open, index, closeDialog, buying}: FormDialogProps) {
+  const [name, setName] = React.useState(buying.name);
+  const [cost, setCost] = React.useState(buying.cost);
+  const dispatch = useDispatch()
 
   function innerEditHandler() {
-    editHandler(index, {
+    dispatch(editAction(index, {
       name,
       cost
-    });
+    }))
+    closeDialog();
   }
 
   return (
@@ -46,7 +51,7 @@ export default function FormDialog({open, editHandler, index, closeDialog}: Form
             label="Cost"
             type="number"
             value={cost}
-            onChange={(event) => setCost(event.target.value)}
+            onChange={(event) => setCost(Number(event.target.value))}
             fullWidth
           />
         </DialogContent>

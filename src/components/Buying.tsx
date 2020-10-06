@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormDialog from '../components/Dialog'
+import { editAction, deleteAction } from '../store/store';
+import {useDispatch} from 'react-redux'
 
 export interface IBuying {
     name: string;
@@ -14,8 +16,6 @@ export interface IBuying {
 
 type BuyingProps = {
     buying: IBuying;
-    deleteHandler: Function;
-    editHandler: Function;
     index: number;
 }
 
@@ -26,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export const Buying = ({buying, deleteHandler, editHandler, index}: BuyingProps) => {
+export const Buying = ({buying, index}: BuyingProps) => {
     const classes = useStyles();
     const [isDiaogOpen, setDialogOpen] = useState(false);
+    const dispatch = useDispatch()
 
     function innerEditHandler(index: number, newValue: IBuying) {
         setDialogOpen(false);
-        editHandler(index, newValue);
+        editAction(index, newValue);
     }
 
     function closeDialog() {
@@ -49,9 +50,9 @@ export const Buying = ({buying, deleteHandler, editHandler, index}: BuyingProps)
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small" onClick={e => deleteHandler(index)}>Delete</Button>
+            <Button size="small" onClick={e => dispatch(deleteAction(index))}>Delete</Button>
             <Button size="small" onClick={() => setDialogOpen(true)}>Edit</Button>
         </CardActions>
-        <FormDialog open={isDiaogOpen} closeDialog={closeDialog} editHandler={innerEditHandler} index={index}/>
+        <FormDialog open={isDiaogOpen} closeDialog={closeDialog} buying={buying} index={index}/>
     </Card>;
 };
