@@ -6,12 +6,14 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormDialog from '../components/Dialog'
-import { editAction, deleteAction } from '../store/store';
-import {useDispatch} from 'react-redux'
+import { editAction, deleteAction, saveCheckbox } from '../store/store';
+import {useDispatch} from 'react-redux';
+import { Checkbox } from '@material-ui/core';
 
 export interface IBuying {
     name: string;
     cost: number;
+    checked: boolean
 }
 
 type BuyingProps = {
@@ -52,6 +54,7 @@ export const Buying = ({buying, index}: BuyingProps) => {
         <CardActions>
             <Button size="small" onClick={e => dispatch(deleteAction(index))}>Delete</Button>
             <Button size="small" onClick={() => setDialogOpen(true)}>Edit</Button>
+            <Checkbox color="primary" checked={buying.checked} onChange={() => dispatch(saveCheckbox(index))}/>
         </CardActions>
         <FormDialog open={isDiaogOpen} closeDialog={closeDialog} buying={buying} index={index}/>
     </Card>;

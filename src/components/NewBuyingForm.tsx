@@ -55,7 +55,8 @@ export const NewBuyingForm = ({}: NewBuyingFormProps) => {
     const handleSaveButton = () => {
         dispatch(saveAction({
             name,
-            cost: Number(cost)
+            cost: Number(cost),
+            checked: false,
         }));
         setName('');
         setCost('');
