@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { useDispatch } from 'react-redux';
-import { saveAction } from '../store/store';
+import { actions } from '../store/store';
 
 function NumberFormatCustom(props: any) {
     const { inputRef, onChange, ...other } = props;
@@ -53,7 +53,7 @@ export const NewBuyingForm = ({}: NewBuyingFormProps) => {
     const dispatch = useDispatch()
 
     const handleSaveButton = () => {
-        dispatch(saveAction({
+        dispatch(actions.save({
             name,
             cost: Number(cost),
             checked: false,

@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { IBuying } from './Buying';
-import { editAction } from '../store/store';
+import { actions } from '../store/store';
 import { useDispatch } from 'react-redux';
 
 type FormDialogProps = {
@@ -22,9 +22,12 @@ export default function FormDialog({open, index, closeDialog, buying}: FormDialo
   const dispatch = useDispatch()
 
   function innerEditHandler() {
-    dispatch(editAction(index, {
-      name,
-      cost
+    dispatch(actions.edit({
+      index, 
+      newObject: {
+        name,
+        cost
+      } 
     }))
     closeDialog();
   }

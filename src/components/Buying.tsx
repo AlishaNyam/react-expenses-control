@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormDialog from '../components/Dialog'
-import { editAction, deleteAction, saveCheckbox } from '../store/store';
+import { actions } from '../store/store';
 import {useDispatch} from 'react-redux';
 import { Checkbox } from '@material-ui/core';
 
@@ -35,7 +35,7 @@ export const Buying = ({buying, index}: BuyingProps) => {
 
     function innerEditHandler(index: number, newValue: IBuying) {
         setDialogOpen(false);
-        editAction(index, newValue);
+        actions.edit({index, newValue});
     }
 
     function closeDialog() {
@@ -52,9 +52,9 @@ export const Buying = ({buying, index}: BuyingProps) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small" onClick={e => dispatch(deleteAction(index))}>Delete</Button>
+            <Button size="small" onClick={e => dispatch(actions.delete(index))}>Delete</Button>
             <Button size="small" onClick={() => setDialogOpen(true)}>Edit</Button>
-            <Checkbox color="primary" checked={buying.checked} onChange={() => dispatch(saveCheckbox(index))}/>
+            <Checkbox color="primary" checked={buying.checked} onChange={() => dispatch(actions.toggleCheckbox(index))}/>
         </CardActions>
         <FormDialog open={isDiaogOpen} closeDialog={closeDialog} buying={buying} index={index}/>
     </Card>;

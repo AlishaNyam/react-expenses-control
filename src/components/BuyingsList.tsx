@@ -17,18 +17,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type BuyingsListProps = {
-
 }
 
 export const BuyingsList = () => {
     const classes = useStyles();
-    const buyings: IBuying[] = useSelector(state => (state as any).buyings)
+    const buyings: IBuying[] = useSelector(state => (state as any).buyings.buyings)
     const sum = buyings
         .map(buying => Number.parseFloat(buying.cost as any))
         .reduce((a, c) => a + c, 0);
 
     return <>
-        {buyings.map((buying, index) => <Buying index={index} buying={buying}/>)}
+        {buyings.map((buying: IBuying, index: number) => <Buying index={index} buying={buying}/>)}
         <Card className={classes.root}>
             <CardContent>
                 <Typography variant="h5" component="h2" className={classes.sum}>
